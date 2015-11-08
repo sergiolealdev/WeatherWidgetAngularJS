@@ -73,10 +73,14 @@ var appWeatherWidget = angular.module('appWeatherWidget',
   '$scope',
   'weatherWidgetService', 
   '$translate',
-  function ($scope, weatherWidgetService,$translate ) {
+  '$location',
+  function ($scope, weatherWidgetService,$translate, $location ) {
     $scope.weather = {temp: {}, icon: null, wind: {}, date: ""};
     $scope.isForecast=false;
     $scope.languages = ["English", "Français", "Español"];
+    $scope.locationXLPage = $location.url() + "/html/XLPage.html";
+    $scope.locationXSPage = $location.url() + "/html/XSPage.html";
+    $scope.locationErrorPage = $location.url() + "/html/ErrorPage.html";
     
     setLanguage();
     generateWeather();
