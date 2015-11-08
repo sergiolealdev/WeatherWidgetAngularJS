@@ -92,7 +92,7 @@ var appWeatherWidget = angular.module('appWeatherWidget',
       weatherWidgetService.getWeather($scope.city).then(
         function (data) {
           if (data.list[0]) {
-            console.log(data.list[0]);
+            //console.log(data.list[0]);
             fillWeatherData(data.list[0], $scope.weather);
             $scope.country = data.list[0].sys.country;
             $scope.imgurl = fillImage($scope.weather);
