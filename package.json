@@ -1,0 +1,11 @@
+{
+  "name": "widgetweather",
+  "version": "1.0.0",
+  "description": "Widget Weather for AngularJS",
+  "main": "weatherWidget.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sergio Leal",
+  "license": "ISC",
+ }

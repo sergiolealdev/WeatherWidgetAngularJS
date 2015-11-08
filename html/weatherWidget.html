@@ -1,0 +1,17 @@
+<div ng-controller="WeatherCtrl">
+  <div class="container">
+    
+    <div ng-if="error!==null">
+      <div ng-include src="'/html/errorPage.html'"></div>
+    </div>
+
+    <div ng-if="error===null">
+      <div ng-if="size==='xl'">
+        <div ng-include src="'/html/XLPage.html'"></div>
+      </div>  
+      <div ng-if="size==='xs'">
+        <div ng-include src="'/html/XSPage.html'"></div>
+      </div> 
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<!--index.html-->
+<html>
+<head>
+	<title> Widget Weather for AngularJS </title>
+	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular-translate/angular-translate.min.js"></script>
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./js/weatherWidget.js"></script>
+	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="css/main.css" rel="stylesheet" type="text/css" />
+	
+</head>
+<body  ng-app="appWeatherWidget"  ng-controller="WeatherCtrl" >
+	<nav class="navbar navbar-default" >
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Widget Weather Showcase</a>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div>
+			<div >
+				<weather-widget city="Hong Kong" forecast="3" language="fr" activatedemo="1" size="xl">
+				</weather-widget>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "No",
+  "homepage": "https://github.com/sergiolealdev/WidgetWeather",
+  "authors": [
+    "Sergio Leal"
+  ],
+  "description": "Weather Widget for AngularJS",
+  "main": "weatherWidget.js",
+  "moduleType": [],
+  "keywords": [
+    "weather",
+    "widget"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-translate": "~2.8.1",
+    "bootstrap": "~3.3.5"
+  }
+}

@@ -1,0 +1,41 @@
+angular.callbacks._0({
+  "message" : "accurate",
+  "cod" : "200",
+  "count" : 1,
+  "list" : [{
+    "id" : 3034475,
+    "name" : "Bayonne",
+    "coord" : {
+      "lon" : -1.48333,
+      "lat" : 43.48333
+    },
+    "main" : {
+      "temp" : 17.36,
+      "temp_min" : 17.36,
+      "temp_max" : 17.36,
+      "pressure" : 979.01,
+      "sea_level" : 1033.18,
+      "grnd_level" : 979.01,
+      "humidity" : 70
+    },
+    "dt" : 1445602625,
+    "wind" : {
+      "speed" : 0.42,
+      "deg" : 109.503
+    },
+    "sys" : {
+      "country" : "FR"
+    },
+    "clouds" : {
+      "all" : 0
+    },
+    "weather" : [{
+      "id" : 800,
+      "main" : "Clear",
+      "description" : "Sky is Clear",
+      "icon" : "01d"
+    }
+    ]
+  }
+  ]
+})
