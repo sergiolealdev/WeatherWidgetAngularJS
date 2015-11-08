@@ -1,11 +1,13 @@
 <div class="row">
+  <div class="btn-group pull-right" ng-if="demoActivated">
+    <div ng-include src="locationDemoAreaPage"></div>
+  </div>
   <div class="col-md-12 col-xs-12">
+
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left" style="padding-top: 7.5px;"><span class="label label-primary">{{'main.weather' | translate}} {{city}},{{country}}</span></h3>
-        <div class="btn-group pull-right" ng-if="demoActivated">
-          <div ng-include src="locationDemoAreaPage"></div>
-        </div>
+        
       </div>
       <div class="panel-body">
         <div class="col-md-3">
