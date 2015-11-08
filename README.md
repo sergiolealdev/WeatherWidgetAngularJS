@@ -1,7 +1,7 @@
 # WeatherWidgetAngularJS
 Weather Widget 1.0 for AngularJS
 
-Very easy-to-use widget to show weather forecast, based on AngularJS.
+Very easy-to-use widget to show weather forecast, based on AngularJS, using the openweathermap API.
 
 ###How to install
 
@@ -31,6 +31,6 @@ As included in the directive, we can see the following attributes:
 * forecast: Value from 0 to 3, indicating the number of forecast steps we want to show (if any), in blocks of 3 hours. For instance, value "0" will not show any forecast, and value "3" will show 3 more blocks to the right.
 * language: The widget supports three languages: English (en) , French (fr) and Spanish (es)
 * activatedemo: if set to "1", we will see a list of options to "play" and customize our widget.
-* size: 2 posible options: "xs" will show a little widget will basic info, and "xl" will show the widget with full information
+* size: 2 posible options: "xs" will show a little widget will basic info, and "xl" will show the widget with full information (max & min temperature, wind speed, humidity....)
  
 Here you can see a full [DEMO](http://www.sergiolealdev.com/WeatherWidget/app.html) if you want to see it live.
