@@ -13,7 +13,7 @@ var appWeatherWidget = angular.module('appWeatherWidget',
       size        : '@'
     },
     controller: 'WeatherCtrl',
-    templateUrl: '../html/weatherWidget.html'
+    templateUrl: 'html/weatherWidget.html'
   };
 })
 .factory('weatherWidgetService', ['$http', '$q', function ($http, $q) {
@@ -78,9 +78,9 @@ var appWeatherWidget = angular.module('appWeatherWidget',
     $scope.weather = {temp: {}, icon: null, wind: {}, date: ""};
     $scope.isForecast=false;
     $scope.languages = ["English", "Français", "Español"];
-    $scope.locationXLPage = $location.url() + "/html/XLPage.html";
-    $scope.locationXSPage = $location.url() + "/html/XSPage.html";
-    $scope.locationErrorPage = $location.url() + "/html/ErrorPage.html";
+    $scope.locationXLPage = $location.url() + "html/XLPage.html";
+    $scope.locationXSPage = $location.url() + "html/XSPage.html";
+    $scope.locationErrorPage = $location.url() + "html/ErrorPage.html";
     
     setLanguage();
     generateWeather();
