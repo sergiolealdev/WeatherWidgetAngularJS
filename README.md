@@ -41,4 +41,4 @@ As included in the directive, we can see the following attributes:
 * activatedemo: if set to "1", we will see a list of options to "play" and customize our widget.
 * size: 2 posible options: "xs" will show a little widget will basic info, and "xl" will show the widget with full information
  
-Here you can see a full [DEMO](sergiolealdev.com/WeatherWidget/app.html) if you want to see it live.
+Here you can see a full [DEMO](http://www.sergiolealdev.com/WeatherWidget/app.html) if you want to see it live.
