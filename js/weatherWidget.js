@@ -81,6 +81,8 @@ var appWeatherWidget = angular.module('appWeatherWidget',
     $scope.locationXLPage = $location.url() + "html/XLPage.html";
     $scope.locationXSPage = $location.url() + "html/XSPage.html";
     $scope.locationErrorPage = $location.url() + "html/ErrorPage.html";
+    $scope.locationDemoAreaPage = $location.url() + "html/DemoArea.html";
+    $scope.isXL= $scope.size==='xl';
     
     setLanguage();
     generateWeather();
@@ -199,6 +201,17 @@ var appWeatherWidget = angular.module('appWeatherWidget',
         $translate.use('en');
       }
     }
+
+    $scope.changetoXS = function(){
+      $scope.size='xs';
+      $scope.isXL=false;
+    }
+
+    $scope.changetoXL = function(){
+      $scope.size='xl';
+      $scope.isXL=true;
+    }
+
   }])
 .config(['$translateProvider', function ($translateProvider) {
   $translateProvider.translations('en', {

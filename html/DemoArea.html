@@ -1,0 +1,18 @@
+<form class="form-inline" role="form">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Change city" ng-model="city">
+    <button type="button" class="btn btn-primary" ng-click="changeCity(city)">Change City</button>
+  </div>
+  <div class="form-group">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Languages <span class="caret"></span></button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li ng-repeat="lang in languages">
+          <a href="#" ng-click="languageSelected(lang)">{{lang}}</a>
+        </li>
+      </ul>
+      <button type="button" ng-show="isXL" class="btn btn-primary" ng-click="changetoXS()">Switch Size to XS</button>
+      <button type="button" ng-show="!isXL" class="btn btn-primary" ng-click="changetoXL()">Switch Size to XL</button>
+    </div>
+  </div>
+</form>
