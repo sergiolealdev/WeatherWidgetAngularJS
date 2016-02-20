@@ -80,7 +80,7 @@ var appWeatherWidget = angular.module('appWeatherWidget',
     $scope.languages = ["English", "Français", "Español"];
     $scope.locationXLPage = $location.url() + "html/XLPage.html";
     $scope.locationXSPage = $location.url() + "html/XSPage.html";
-    $scope.locationErrorPage = $location.url() + "html/ErrorPage.html";
+    $scope.locationErrorPage = $location.url() + "html/errorPage.html";
     $scope.locationDemoAreaPage = $location.url() + "html/DemoArea.html";
     $scope.isXL= $scope.size==='xl';
     
