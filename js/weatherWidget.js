@@ -107,28 +107,23 @@ angular.module('weatherWidget',
     
     $scope.languageSelected = function (lang) {
       console.log('lang:' + lang);
-      $translate.use('fr').then(function () {
-        $scope.selectedFlag = lang;
-        switch(lang) {
+      switch(lang) {
           case 'English':
-            $scope.formattedDate = formatDate($scope.date);
-            formatForecastDates();
-            $scope.selectedFlag = 'en';
-            break;
+          lang = 'en';
+           break;
           case 'Français':
-            $scope.formattedDate = formatDate($scope.date);
-            formatForecastDates();
-            $scope.selectedFlag = 'fr';
-            
-            break;
+          lang = 'fr';
+          break;
           case 'Español':
-            $scope.formattedDate = formatDate($scope.date);
-            formatForecastDates();
-            $scope.selectedFlag = 'es';
-            break;
+          lang = 'es';
+          break;
           default:
             $translate.use('en');
         }
+      $translate.use(lang).then(function () {
+        $scope.formattedDate = formatDate($scope.date);
+        formatForecastDates();
+        $scope.selectedFlag = lang;
       });
       
     }
