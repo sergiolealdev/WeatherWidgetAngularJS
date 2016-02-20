@@ -1,4 +1,4 @@
-var appWeatherWidget = angular.module('appWeatherWidget',
+angular.module('weatherWidget',
   [
   'pascalprecht.translate'
   ])
@@ -9,7 +9,6 @@ var appWeatherWidget = angular.module('appWeatherWidget',
       city        : '@',
       forecast    : '@',
       language    : '@',
-      activatedemo: '@',
       size        : '@'
     },
     controller: 'WeatherCtrl',
@@ -74,7 +73,8 @@ var appWeatherWidget = angular.module('appWeatherWidget',
   'weatherWidgetService', 
   '$translate',
   '$location',
-  function ($scope, weatherWidgetService,$translate, $location ) {
+  'communicatorService',
+  function ($scope, weatherWidgetService,$translate, $location,communicatorService ) {
     $scope.weather = {temp: {}, icon: null, wind: {}, date: ""};
     $scope.isForecast=false;
     $scope.languages = ["English", "Français", "Español"];
@@ -86,7 +86,38 @@ var appWeatherWidget = angular.module('appWeatherWidget',
     
     setLanguage();
     generateWeather();
-    manageDemo();
+    
+    $scope.$on('handleBroadcastSize', function() {
+        $scope.message = communicatorService.size;
+        if($scope.message==='xl'){
+          $scope.isXL=true;
+          $scope.size='xl';
+        }else{
+          $scope.isXL=false;
+          $scope.size='xs';
+        }
+    });  
+
+    $scope.$on('handleBroadcastCity', function() {
+        $scope.city = communicatorService.city;
+        generateWeather();
+    });  
+    
+    $scope.languageSelected = function (lang) {
+      switch(lang) {
+        case 'English':
+          $translate.use('en');
+          break;
+        case 'Français':
+          $translate.use('fr');
+          break;
+        case 'Español':
+          $translate.use('es');
+          break;
+        default:
+          $translate.use('en');
+      }
+    }
 
     function generateWeather(){
       weatherWidgetService.getWeather($scope.city).then(
@@ -96,7 +127,7 @@ var appWeatherWidget = angular.module('appWeatherWidget',
             fillWeatherData(data.list[0], $scope.weather);
             $scope.country = data.list[0].sys.country;
             $scope.imgurl = fillImage($scope.weather);
-            $scope.date = fillDate($translate, new Date(data.list[0].dt * 1000));
+            $scope.date = fillDate(new Date(data.list[0].dt * 1000));
 
             $scope.error = null;
           }
@@ -118,7 +149,7 @@ var appWeatherWidget = angular.module('appWeatherWidget',
                 fillWeatherData(data.list[i], weather);
                 weather.imgurl = fillImage(weather);
                 var t = new Date(data.list[i].dt * 1000);
-                weather.date = fillDate($translate,t);
+                weather.date = fillDate(t);
                 weather.hour = fillHour(t);
                 $scope.forecastDays.push(weather);
               }
@@ -135,13 +166,6 @@ var appWeatherWidget = angular.module('appWeatherWidget',
     function setLanguage(){
       if($scope.language)
         $translate.use($scope.language);
-    }
-
-    function manageDemo(){
-      if($scope.activatedemo!==null && $scope.activatedemo==="1"){
-        $scope.demoActivated=true;
-        console.log("Demo activated");
-      }
     }
 
     function fillError(){
@@ -162,7 +186,7 @@ var appWeatherWidget = angular.module('appWeatherWidget',
       return weatherWidgetService.getImage(weather.icon);
     }
 
-    function fillDate($translate, date){
+    function fillDate(date){
       var days = ['main.days.sunday',
                   'main.days.monday',
                   'main.days.tuesday', 
@@ -170,6 +194,8 @@ var appWeatherWidget = angular.module('appWeatherWidget',
                   'main.days.thursday',
                   'main.days.friday',
                   'main.days.saturday'];
+                  console.log(date.getDay());
+                  console.log(days[date.getDay()]);
       return $translate.instant(days[date.getDay()]) + ", " + date.getDate();
     }
 
@@ -181,36 +207,6 @@ var appWeatherWidget = angular.module('appWeatherWidget',
       return value < 10 ? "0" + value : value;
     }
 
-    $scope.changeCity = function (city){
-      $scope.city = city;
-      generateWeather();
-    }
-
-    $scope.languageSelected = function (lang) {
-      switch(lang) {
-        case 'English':
-        $translate.use('en');
-        break;
-        case 'Français':
-        $translate.use('fr');
-        break;
-        case 'Español':
-        $translate.use('es');
-        break;
-        default:
-        $translate.use('en');
-      }
-    }
-
-    $scope.changetoXS = function(){
-      $scope.size='xs';
-      $scope.isXL=false;
-    }
-
-    $scope.changetoXL = function(){
-      $scope.size='xl';
-      $scope.isXL=true;
-    }
 
   }])
 .config(['$translateProvider', function ($translateProvider) {

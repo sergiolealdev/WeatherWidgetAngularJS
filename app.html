@@ -6,7 +6,11 @@
 	<script type="text/javascript" src="bower_components/angular-translate/angular-translate.min.js"></script>
 	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
 	<script type="text/javascript" src="./js/weatherWidget.js"></script>
+	<script type="text/javascript" src="./js/demo.js"></script>
+	<script type="text/javascript" src="./js/communicator.js"></script>
+	<script type="text/javascript" src="main.js"></script>
 	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<link href="css/main.css" rel="stylesheet" type="text/css" />
 	
@@ -20,7 +24,11 @@
 			</div>
 		</div>
 	</nav>
+	
 	<div class="container">
+		<div ng-controller="DemoCtrl" class="btn-group pull-left">
+    		<div ng-include src="locationDemoAreaPage"></div>
+  		</div>
 		<div >
 			<weather-widget city="Dublin" forecast="3" language="en" activatedemo="1" size="xl"></weather-widget>
 		</div>

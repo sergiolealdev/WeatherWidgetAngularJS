@@ -11,8 +11,8 @@
           <a href="#" ng-click="languageSelected(lang)">{{lang}}</a>
         </li>
       </ul>
-      <button type="button" ng-show="isXL" class="btn btn-primary" ng-click="changetoXS()">Switch Size to XS</button>
-      <button type="button" ng-show="!isXL" class="btn btn-primary" ng-click="changetoXL()">Switch Size to XL</button>
+      <button type="button" ng-show="isXL" class="btn btn-primary" ng-click="changeSize('xs')">Switch Size to XS</button>
+      <button type="button" ng-show="!isXL" class="btn btn-primary" ng-click="changeSize('xl')">Switch Size to XL</button>
     </div>
   </div>
 </form>
