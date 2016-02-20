@@ -11,14 +11,16 @@ angular.module('demoArea', [])
   'communicatorService',
   function ($scope, communicatorService) {
   	$scope.isXL=true;
-
-  	$scope.changeSize = function(size){
+  	$scope.selectedLanguage;
+  	$scope.languages = ["English", "Français", "Español"];
+    
+  	$scope.changeSize = function(size) {
   		$scope.size=size;
       	$scope.isXL=(size==='xl');
       	communicatorService.changeSize($scope.size);
     }
 
-    $scope.changeCity = function (city){
+    $scope.changeCity = function (city) {
       communicatorService.changeCity(city);
     }
 

@@ -81,8 +81,10 @@ angular.module('weatherWidget',
     $scope.locationXLPage = $location.url() + "html/XLPage.html";
     $scope.locationXSPage = $location.url() + "html/XSPage.html";
     $scope.locationErrorPage = $location.url() + "html/errorPage.html";
-    $scope.locationDemoAreaPage = $location.url() + "html/DemoArea.html";
+    $scope.locationDemoAreaPage = $location.url() + "html/demoArea.html";
+    $scope.date = new Date();
     $scope.isXL= $scope.size==='xl';
+    $scope.forecastDays = [];
     
     setLanguage();
     generateWeather();
@@ -104,22 +106,42 @@ angular.module('weatherWidget',
     });  
     
     $scope.languageSelected = function (lang) {
-      switch(lang) {
-        case 'English':
-          $translate.use('en');
-          break;
-        case 'Français':
-          $translate.use('fr');
-          break;
-        case 'Español':
-          $translate.use('es');
-          break;
-        default:
-          $translate.use('en');
+      console.log('lang:' + lang);
+      $translate.use('fr').then(function () {
+        $scope.selectedFlag = lang;
+        switch(lang) {
+          case 'English':
+            $scope.formattedDate = formatDate($scope.date);
+            formatForecastDates();
+            $scope.selectedFlag = 'en';
+            break;
+          case 'Français':
+            $scope.formattedDate = formatDate($scope.date);
+            formatForecastDates();
+            $scope.selectedFlag = 'fr';
+            
+            break;
+          case 'Español':
+            $scope.formattedDate = formatDate($scope.date);
+            formatForecastDates();
+            $scope.selectedFlag = 'es';
+            break;
+          default:
+            $translate.use('en');
+        }
+      });
+      
+    }
+
+    function formatForecastDates(){
+      console.log("Entramos en formatForecastDates:" + $scope.forecastDays.length);
+      for(var i = 0; i< $scope.forecastDays.length;i++){
+          $scope.forecastDays[i].formattedDate = formatDate($scope.forecastDays[i].date);
       }
     }
 
     function generateWeather(){
+      $scope.forecastDays = [];
       weatherWidgetService.getWeather($scope.city).then(
         function (data) {
           if (data.list[0]) {
@@ -127,45 +149,50 @@ angular.module('weatherWidget',
             fillWeatherData(data.list[0], $scope.weather);
             $scope.country = data.list[0].sys.country;
             $scope.imgurl = fillImage($scope.weather);
-            $scope.date = fillDate(new Date(data.list[0].dt * 1000));
+            $scope.date = new Date(data.list[0].dt * 1000);
+            $scope.formattedDate = formatDate($scope.date);
 
             $scope.error = null;
+          }
+
+          if($scope.forecast!==null && $scope.forecast>0){
+            $scope.isForecast=true;
+           
+            weatherWidgetService.getForecast($scope.city).then(
+              function (data) {
+                if (data) {
+                  for(var i=1;i<=$scope.forecast;i++){
+                    var weather = {temp: {}, icon: null, wind: {}, date: "",hour: ""};
+
+                    fillWeatherData(data.list[i], weather);
+                    weather.imgurl = fillImage(weather);
+                    $scope.date = new Date(data.list[i].dt * 1000);
+                    weather.date = $scope.date;
+                    weather.formattedDate = formatDate($scope.date);
+                    weather.hour = fillHour($scope.date);
+                    $scope.forecastDays.push(weather);
+                  }
+                  $scope.error = null;
+                }
+              },
+              function (error) {
+                fillError();
+              });
           }
         },
         function (error) {
           fillError();
         });
 
-      if($scope.forecast!==null && $scope.forecast>0)
-      {
-        $scope.isForecast=true;
-        $scope.forecastDays = [];
-        weatherWidgetService.getForecast($scope.city).then(
-          function (data) {
-            if (data) {
-              for(var i=1;i<=$scope.forecast;i++){
-                var weather = {temp: {}, icon: null, wind: {}, date: "",hour: ""};
-
-                fillWeatherData(data.list[i], weather);
-                weather.imgurl = fillImage(weather);
-                var t = new Date(data.list[i].dt * 1000);
-                weather.date = fillDate(t);
-                weather.hour = fillHour(t);
-                $scope.forecastDays.push(weather);
-              }
-              $scope.error = null;
-            }
-          },
-          function (error) {
-            fillError();
-          });
-
-      }
+      
     }
 
     function setLanguage(){
-      if($scope.language)
+      $scope.selectedFlag = 'en';
+      if($scope.language!==undefined){
         $translate.use($scope.language);
+      }
+        
     }
 
     function fillError(){
@@ -186,7 +213,7 @@ angular.module('weatherWidget',
       return weatherWidgetService.getImage(weather.icon);
     }
 
-    function fillDate(date){
+    function formatDate(date){
       var days = ['main.days.sunday',
                   'main.days.monday',
                   'main.days.tuesday', 
@@ -194,8 +221,8 @@ angular.module('weatherWidget',
                   'main.days.thursday',
                   'main.days.friday',
                   'main.days.saturday'];
-                  console.log(date.getDay());
-                  console.log(days[date.getDay()]);
+                  console.log($translate.instant(days[date.getDay()]));
+                  $scope.date = date;
       return $translate.instant(days[date.getDay()]) + ", " + date.getDate();
     }
 
@@ -265,4 +292,5 @@ angular.module('weatherWidget',
   });
 
   $translateProvider.preferredLanguage('en');
+  $translateProvider.useSanitizeValueStrategy('escape');
 }]);
