@@ -5,12 +5,14 @@
     </div>
 
     <div ng-if="error===null">
-      <div ng-if="size==='xl'">
-        <div ng-include src="locationXLPage"></div>
-      </div>  
-      <div ng-if="size==='xs'">
-        <div ng-include src="locationXSPage"></div>
+      <div ng-switch="size">
+          <div ng-switch-when="xl">
+            <div ng-include src="locationXLPage"></div>
+          </div>  
+          <div ng-switch-when="xs">
+            <div ng-include src="locationXSPage"></div>
+          </div>
       </div> 
-    </div>
+   </div>
   </div>
 </div>
