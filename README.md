@@ -5,6 +5,11 @@ Very easy-to-use widget to show weather forecast, based on AngularJS, using the 
 
 ###How to install
 
+Include using Bower (all scripts are located within bower_components directory):
+
+```sh
+bower install weather-widget-angular
+```
 
 ###Instructions
 
