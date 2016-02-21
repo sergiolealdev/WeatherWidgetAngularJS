@@ -2,7 +2,7 @@
   "name": "Simple weather widget",
   "homepage": "https://github.com/sergiolealdev/WidgetWeather",
   "authors": [
-    "Sergio Leal"
+    "sergiolealdev.com"
   ],
   "description": "Weather Widget for AngularJS",
   "main": "weatherWidget.js",

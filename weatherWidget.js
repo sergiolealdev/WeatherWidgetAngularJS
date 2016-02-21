@@ -72,8 +72,7 @@ angular.module('weatherWidget',[
   'weatherWidgetService', 
   '$translate',
   '$location',
-  'communicatorService',
-  function ($scope, weatherWidgetService,$translate, $location,communicatorService ) {
+   function ($scope, weatherWidgetService,$translate, $location ) {
     $scope.weather = {temp: {}, icon: null, wind: {}, date: ""};
     $scope.isForecast=false;
     $scope.languages = ["English", "Français", "Español"];
@@ -88,31 +87,6 @@ angular.module('weatherWidget',[
     setLanguage();
     generateWeather();
     
-    $scope.$on('handleBroadcastSize', function() {
-        $scope.message = communicatorService.size;
-        if($scope.message==='xl'){
-          $scope.isXL=true;
-          $scope.size='xl';
-        }else{
-          $scope.isXL=false;
-          $scope.size='xs';
-        }
-    });  
-
-    $scope.$on('handleBroadcastCity', function() {
-        $scope.city = communicatorService.city;
-        generateWeather();
-    });  
-
-    $scope.$on('handleBroadcastLang', function() {
-       $translate.use(communicatorService.lang).then(function () {
-        $scope.formattedDate = formatDate($scope.date);
-        formatForecastDates();
-      });
-    });  
-    
-    
-
     function formatForecastDates(){
       for(var i = 0; i< $scope.forecastDays.length;i++){
           $scope.forecastDays[i].formattedDate = formatDate($scope.forecastDays[i].date);
