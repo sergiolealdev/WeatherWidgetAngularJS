@@ -35,6 +35,6 @@ As included in the directive, we can see the following attributes:
 * city: This attribute will take the name of the city we want to show.
 * forecast: Value from 0 to 3, indicating the number of forecast steps we want to show (if any), in blocks of 3 hours. For instance, value "0" will not show any forecast, and value "3" will show 3 more blocks to the right.
 * language: The widget supports three languages: English (en) , French (fr) and Spanish (es)
-* size: 2 posible options: "xs" will show a little widget will basic info, and "xl" will show the widget with full information (max & min temperature, wind speed, humidity....)
+* size: "xs" will show a minimal widget will basic info, and "xl" will show the widget with full information (max & min temperature, wind speed, humidity....). Note xs size doesn't allow forecast
  
 Here you can see a full [DEMO](http://www.sergiolealdev.com/WeatherWidget/app.html) if you want to see it live.
