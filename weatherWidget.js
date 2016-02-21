@@ -11,7 +11,7 @@ angular.module('weatherWidget',[
       appid       : '@'
     },
     controller: 'WeatherCtrl',
-    templateUrl: 'html/weatherWidget.html'
+    templateUrl: 'bower_components/weather-widget-angular/html/weatherWidget.html'
   };
 })
 .factory('weatherWidgetService', ['$http', '$q', function ($http, $q) {
@@ -76,10 +76,10 @@ angular.module('weatherWidget',[
     $scope.weather = {temp: {}, icon: null, wind: {}, date: ""};
     $scope.isForecast=false;
     $scope.languages = ["English", "Français", "Español"];
-    $scope.locationXLPage = $location.url() + "html/XLPage.html";
-    $scope.locationXSPage = $location.url() + "html/XSPage.html";
-    $scope.locationErrorPage = $location.url() + "html/errorPage.html";
-    $scope.locationDemoAreaPage = $location.url() + "html/demoArea.html";
+    $scope.locationXLPage = $location.url() + "bower_components/weather-widget-angular/html/XLPage.html";
+    $scope.locationXSPage = $location.url() + "bower_components/weather-widget-angular/html/XSPage.html";
+    $scope.locationErrorPage = $location.url() + "bower_components/weather-widget-angular/html/errorPage.html";
+    $scope.locationDemoAreaPage = $location.url() + "bower_components/weather-widget-angular/html/demoArea.html";
     $scope.date = new Date();
     $scope.isXL= $scope.size==='xl';
     $scope.forecastDays = [];
