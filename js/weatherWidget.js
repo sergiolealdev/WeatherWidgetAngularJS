@@ -1,7 +1,5 @@
-angular.module('weatherWidget',
-  [
-  'pascalprecht.translate'
-  ])
+angular.module('weatherWidget',[
+  'pascalprecht.translate'])
 .directive('weatherWidget', function () {
   return {
     restrict: 'E',
@@ -9,7 +7,8 @@ angular.module('weatherWidget',
       city        : '@',
       forecast    : '@',
       language    : '@',
-      size        : '@'
+      size        : '@',
+      appid       : '@'
     },
     controller: 'WeatherCtrl',
     templateUrl: 'html/weatherWidget.html'
@@ -22,9 +21,9 @@ angular.module('weatherWidget',
     getImage: getImage
   };
 
-  function getWeather(city) {
+  function getWeather(city,appid) {
     var defer = $q.defer();
-    var url = "http://api.openweathermap.org/data/2.5/find?q=" + city + "&units=metric&appid=265c6a6f6256191b246b6846c8472dc8&callback=JSON_CALLBACK";
+    var url = "http://api.openweathermap.org/data/2.5/find?q=" + city + "&units=metric&appid=" + appid + "&callback=JSON_CALLBACK";
     //var url = 'http://localhost:8080/weather.json?callback=JSON_CALLBACK';
     $http.jsonp(url)
     .success(function (data) {
@@ -38,9 +37,9 @@ angular.module('weatherWidget',
 
   }
 
-    function getForecast(city) {
+    function getForecast(city,appid) {
       var defer = $q.defer();
-      var url = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=metric&appid=265c6a6f6256191b246b6846c8472dc8&callback=JSON_CALLBACK";
+      var url = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=metric&appid=" + appid + "&callback=JSON_CALLBACK";
       //var url = 'http://localhost:8080/forecast.json?callback=JSON_CALLBACK';
       $http.jsonp(url)
       .success(function (data) {
@@ -104,29 +103,15 @@ angular.module('weatherWidget',
         $scope.city = communicatorService.city;
         generateWeather();
     });  
-    
-    $scope.languageSelected = function (lang) {
-      console.log('lang:' + lang);
-      switch(lang) {
-          case 'English':
-          lang = 'en';
-           break;
-          case 'Français':
-          lang = 'fr';
-          break;
-          case 'Español':
-          lang = 'es';
-          break;
-          default:
-            $translate.use('en');
-        }
-      $translate.use(lang).then(function () {
+
+    $scope.$on('handleBroadcastLang', function() {
+       $translate.use(communicatorService.lang).then(function () {
         $scope.formattedDate = formatDate($scope.date);
         formatForecastDates();
-        $scope.selectedFlag = lang;
       });
-      
-    }
+    });  
+    
+    
 
     function formatForecastDates(){
       console.log("Entramos en formatForecastDates:" + $scope.forecastDays.length);
@@ -137,7 +122,7 @@ angular.module('weatherWidget',
 
     function generateWeather(){
       $scope.forecastDays = [];
-      weatherWidgetService.getWeather($scope.city).then(
+      weatherWidgetService.getWeather($scope.city,$scope.appid).then(
         function (data) {
           if (data.list[0]) {
             //console.log(data.list[0]);
@@ -153,7 +138,7 @@ angular.module('weatherWidget',
           if($scope.forecast!==null && $scope.forecast>0){
             $scope.isForecast=true;
            
-            weatherWidgetService.getForecast($scope.city).then(
+            weatherWidgetService.getForecast($scope.city,$scope.appid).then(
               function (data) {
                 if (data) {
                   for(var i=1;i<=$scope.forecast;i++){
@@ -171,15 +156,13 @@ angular.module('weatherWidget',
                 }
               },
               function (error) {
-                fillError();
+                fillError(error);
               });
           }
         },
         function (error) {
-          fillError();
+          fillError(error);
         });
-
-      
     }
 
     function setLanguage(){
@@ -187,10 +170,10 @@ angular.module('weatherWidget',
       if($scope.language!==undefined){
         $translate.use($scope.language);
       }
-        
     }
 
-    function fillError(){
+    function fillError(error){
+      console.log("error:" + error);
       $scope.error = "City " + $scope.city +  " not found";
     }
 
