@@ -30,7 +30,7 @@ angular.module('weatherWidget',[
       defer.resolve(data);
     })
     .error(function (error) {
-      console.log("Error weather request " + error);
+      console.log("Error weather request: " + error);
       defer.reject(error);
     });
     return defer.promise;
@@ -46,7 +46,7 @@ angular.module('weatherWidget',[
         defer.resolve(data);
       })
       .error(function (error) {
-        console.log("Error weather request " + error);
+        console.log("Error forecast request: " + error);
         defer.reject(error);
       });
       return defer.promise;
@@ -114,7 +114,6 @@ angular.module('weatherWidget',[
     
 
     function formatForecastDates(){
-      console.log("Entramos en formatForecastDates:" + $scope.forecastDays.length);
       for(var i = 0; i< $scope.forecastDays.length;i++){
           $scope.forecastDays[i].formattedDate = formatDate($scope.forecastDays[i].date);
       }
@@ -125,7 +124,6 @@ angular.module('weatherWidget',[
       weatherWidgetService.getWeather($scope.city,$scope.appid).then(
         function (data) {
           if (data.list[0]) {
-            //console.log(data.list[0]);
             fillWeatherData(data.list[0], $scope.weather);
             $scope.country = data.list[0].sys.country;
             $scope.imgurl = fillImage($scope.weather);
@@ -173,7 +171,6 @@ angular.module('weatherWidget',[
     }
 
     function fillError(error){
-      console.log("error:" + error);
       $scope.error = "City " + $scope.city +  " not found";
     }
 
@@ -199,7 +196,6 @@ angular.module('weatherWidget',[
                   'main.days.thursday',
                   'main.days.friday',
                   'main.days.saturday'];
-                  console.log($translate.instant(days[date.getDay()]));
                   $scope.date = date;
       return $translate.instant(days[date.getDay()]) + ", " + date.getDate();
     }
