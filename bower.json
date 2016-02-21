@@ -6,7 +6,7 @@
     "sergiolealdev.com"
   ],
   "description": "Weather Widget for AngularJS",
-  "main": "weatherWidget.js",
+  "main": "weather-widget-angular.js",
   "moduleType": [],
   "keywords": [
     "weather",
